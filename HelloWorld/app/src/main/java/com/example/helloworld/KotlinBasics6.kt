@@ -30,6 +30,26 @@ fun main() {
 
     // with "let" and the safe-call operator we can have
     // some code to be executed only if the variable is not null
-    myNullableString = "Hello!"
+    myNullableString = null
     myNullableString?.let { println(myNullableString.toString()) }
+
+    // with the Elvis operator (?:) we can define a fallback value in case of a null
+    val myOtherString = (myNullableString ?: "Default Value").toLowerCase()
+    print(myOtherString)
+
+    /*
+    With the !! operator we can force the compiler
+    to run the code without the safe check on a nullable.
+
+    val myOtherOtherString: String? = null
+    print(myOtherOtherString!!.toLowerCase())
+
+    */
+
+    /*
+
+    // a chain of safe calls
+    val friendAge = me?.friend?.age ?: 0
+
+     */
 }
