@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:background="@color/backgroundColor"
     android:padding="16dp"
-    tools:context="MainActivity">
+    tools:context=".MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -40,7 +40,7 @@
         android:textStyle="bold"/>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/dateSelectorButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="SELECT DATE"
@@ -49,10 +49,10 @@
     "/>
 
     <TextView
+        android:id="@+id/selectedDateTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="01/12/2020"
         android:textColor="@color/textColor"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -67,10 +67,10 @@
         />
 
     <TextView
+        android:id="@+id/ageInMinutesTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="212214"
         android:textColor="@color/textColor"
         android:textSize="40sp"
         android:textStyle="bold"/>
