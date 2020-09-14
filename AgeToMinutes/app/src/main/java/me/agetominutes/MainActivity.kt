@@ -37,13 +37,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateSelectedDateTextView(year: Int, month: Int, day: Int) {
 
-        selectedDateTextView.text = String.format("%02d/%02d/%d", day, month + 1, year)
+        selectedDateTextView.text = formatDate(year, month, day)
     }
 
     private fun computeAgeInMinutes(year: Int, month: Int, day: Int): Long {
 
         val sdf = SimpleDateFormat("dd/MM/yyyy")
-        val date = sdf.parse(String.format("%02d/%02d/%d", day, month + 1, year))
+        val date = sdf.parse(formatDate(year, month, day))
 
         return ( (Date().time - date.time) / 1000) / 60
     }
@@ -52,4 +52,6 @@ class MainActivity : AppCompatActivity() {
 
         ageInMinutesTextView.text = "$ageInMinutes"
     }
+
+    private fun formatDate(year: Int, month: Int, day: Int) = String.format("%02d/%02d/%d", day, month + 1, year)
 }
