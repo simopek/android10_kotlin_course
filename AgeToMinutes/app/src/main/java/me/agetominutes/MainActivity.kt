@@ -28,10 +28,19 @@ class MainActivity : AppCompatActivity() {
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
         val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener{ view, year, month, day ->
+
             updateSelectedDateTextView(year, month, day)
-            val ageInMinutes = computeAgeInMinutes(year, month, day)
+
+            val selectedDate = buildDate(year, month, day)
+
+            val ageInMinutes = computeAgeInMinutes(selectedDate)
             updateAgeInMinutesTextView(ageInMinutes)
+
+            val ageInDays = computeAgeInDays(selectedDate)
+            updateAgeInDaysTextView(ageInDays)
+
         }, year, month, day)
+        dpd.datePicker.maxDate = Date().time - (24 * 60 * 60 * 1000)
         dpd.show()
     }
 
@@ -40,17 +49,28 @@ class MainActivity : AppCompatActivity() {
         selectedDateTextView.text = formatDate(year, month, day)
     }
 
-    private fun computeAgeInMinutes(year: Int, month: Int, day: Int): Long {
+    private fun buildDate(year: Int, month: Int, day: Int) = SimpleDateFormat("dd/MM/yyyy").parse(formatDate(year, month, day))
 
-        val sdf = SimpleDateFormat("dd/MM/yyyy")
-        val date = sdf.parse(formatDate(year, month, day))
+    private fun computeAgeInMinutes(date: Date): Long {
 
-        return ( (Date().time - date.time) / 1000) / 60
+        // we know 'date' cannot be null; we use '!!' to force the retrieval of the value in any case
+        return ( (Date().time - date!!.time) / 1000) / 60
+    }
+
+    private fun computeAgeInDays(date: Date): Long {
+
+         // we know 'date' cannot be null; we use '!!' to force the retrieval of the value in any case
+        return ((Date().time - date!!.time) / 1000)  / (60 * 60 * 24)
     }
 
     private fun updateAgeInMinutesTextView(ageInMinutes: Long) {
 
         ageInMinutesTextView.text = "$ageInMinutes"
+    }
+
+    private fun updateAgeInDaysTextView(ageInDays: Long) {
+
+        ageInDaysTextView.text = "$ageInDays"
     }
 
     private fun formatDate(year: Int, month: Int, day: Int) = String.format("%02d/%02d/%d", day, month + 1, year)
