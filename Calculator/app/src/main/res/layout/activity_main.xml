@@ -34,24 +34,25 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="7"
-                android:onClick="onDigitButton"/>
+                android:onClick="onDigitButtonClick"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="8"
-                android:onClick="onDigitButton"/>
+                android:onClick="onDigitButtonClick"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="9"
-                android:onClick="onDigitButton"/>
+                android:onClick="onDigitButtonClick"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="/"/>
+                android:text="/"
+                android:onClick="onOperatorButtonClick"/>
         </LinearLayout>
 
         <LinearLayout
@@ -64,24 +65,25 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="4"
-                android:onClick="onDigitButton"/>
+                android:onClick="onDigitButtonClick"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="5"
-                android:onClick="onDigitButton"/>
+                android:onClick="onDigitButtonClick"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="6"
-                android:onClick="onDigitButton"/>
+                android:onClick="onDigitButtonClick"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="*"/>
+                android:text="*"
+                android:onClick="onOperatorButtonClick"/>
         </LinearLayout>
 
         <LinearLayout
@@ -94,24 +96,25 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="1"
-                android:onClick="onDigitButton"/>
+                android:onClick="onDigitButtonClick"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="2"
-                android:onClick="onDigitButton"/>
+                android:onClick="onDigitButtonClick"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="3"
-                android:onClick="onDigitButton"/>
+                android:onClick="onDigitButtonClick"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="-"/>
+                android:text="-"
+                android:onClick="onOperatorButtonClick"/>
         </LinearLayout>
 
         <LinearLayout
@@ -124,24 +127,25 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="."
-                android:onClick="onDecimalPointButton"/>
+                android:onClick="onDecimalPointButtonClick"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="0"
-                android:onClick="onDigitButton"/>
+                android:onClick="onDigitButtonClick"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="CLR"
-                android:onClick="onCLRButton"/>
+                android:onClick="onCLRButtonClick"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="+"/>
+                android:text="+"
+                android:onClick="onOperatorButtonClick"/>
         </LinearLayout>
 
         <LinearLayout
@@ -153,7 +157,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
-                android:text="="/>
+                android:text="="
+                android:onClick="onOperatorButtonClick"/>
         </LinearLayout>
 
         
