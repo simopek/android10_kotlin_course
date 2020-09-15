@@ -9,12 +9,13 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/resultTextView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="right|bottom"
         android:textSize="25dp"
-        android:text="Hello World!"/>
+        android:text=""/>
     
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,17 +33,20 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="7"/>
+                android:text="7"
+                android:onClick="onDigitButton"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="8"/>
+                android:text="8"
+                android:onClick="onDigitButton"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="9"/>
+                android:text="9"
+                android:onClick="onDigitButton"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -59,17 +63,20 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="4"/>
+                android:text="4"
+                android:onClick="onDigitButton"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="5"/>
+                android:text="5"
+                android:onClick="onDigitButton"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="6"/>
+                android:text="6"
+                android:onClick="onDigitButton"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -86,17 +93,20 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="1"/>
+                android:text="1"
+                android:onClick="onDigitButton"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="2"/>
+                android:text="2"
+                android:onClick="onDigitButton"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="3"/>
+                android:text="3"
+                android:onClick="onDigitButton"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -112,13 +122,21 @@
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:text="0"/>
+                android:layout_weight="1"
+                android:text="."
+                android:onClick="onDecimalPointButton"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="CLR"/>
+                android:text="0"
+                android:onClick="onDigitButton"/>
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="CLR"
+                android:onClick="onCLRButton"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
