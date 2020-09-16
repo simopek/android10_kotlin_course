@@ -8,9 +8,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    var digitButtonPressed = false
-    var decimalPointButtonPressed = false
-    var operatorButtonPressed = false
+    private var num1: String = ""
+    private var num2: String = ""
+    private var operator: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,60 +18,133 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onCLRButtonClick(view: View) {
+        reset();
+    }
+
+    private fun reset() {
         resultTextView.text = ""
-        digitButtonPressed = false
-        decimalPointButtonPressed = false
-        operatorButtonPressed = false
+        num1 = ""
+        num2 = ""
+        operator = null
     }
 
     fun onDigitButtonClick(view: View) {
-        resultTextView.append((view as Button).text)
-        digitButtonPressed = true
+
+        val digit = (view as Button).text
+
+        if (operator == null) {
+            // we are defining num1
+            num1 += digit
+        } else {
+            // we are defining num2
+            num2 += digit
+        }
+        resultTextView.append(digit)
     }
 
     fun onDecimalPointButtonClick(view: View) {
 
-        if (!digitButtonPressed || decimalPointButtonPressed) {
+        var addDecimalPoint = false
+
+       if (operator == null) {
+           // we are defining num1
+           if (!num1.isBlank() && !num1.contains(".")) {
+               num1 += "."
+               addDecimalPoint = true
+           }
+
+       } else {
+           // we are defining num2
+           if (!num2.isBlank() && !num2.contains(".")) {
+               num2 += "."
+               addDecimalPoint = true
+           }
+       }
+
+        if (addDecimalPoint) {
+            resultTextView.append(".")
+        }
+    }
+
+    fun onMinusButtonClick(view: View) {
+
+        if (operator == null) {
+            // we are defining num1 as a negative number
+            if (num1.isBlank()) {
+
+                num1 = "-"
+                resultTextView.append("-")
+
+            } else {
+                // we handle the "-" as the operator
+                __onOperatorButtonClick("-")
+            }
+
             return
+
         }
 
-        resultTextView.append(".")
-        decimalPointButtonPressed = true
+        // operator is already defined
+
+        if (num2.isBlank()) {
+            num2 = "-"
+            resultTextView.append("-")
+        }
     }
 
     fun onOperatorButtonClick(view: View) {
 
-        val currResultText = resultTextView.text
+        __onOperatorButtonClick((view as Button).text.toString())
+    }
 
-        if (currResultText.isBlank() && ("-" == (view as Button).text)) {
-            // we are adding the "minus" for a likely negative number
-            // in the text view still blank
+    private fun __onOperatorButtonClick(chosenOperator: String) {
 
-            resultTextView.append("-")
+        // all the operators except for "-"
+        if (operator != null) {
             return
         }
 
-        if (operatorButtonPressed) {
-            // an operator button has already been pressed; in this case
-            // we are adding the "-" to a number after the operator
+        operator = chosenOperator
+        resultTextView.append(operator)
+    }
 
-            if ( ( (currResultText.endsWith("*") ||
-                        currResultText.endsWith("+") || currResultText.endsWith("/")) ) && ("-" == (view as Button).text)) {
-                resultTextView.append("-")
+    fun onEqualButtonClick(view: View) {
+
+        if (operator == null) {
+            return
+        }
+
+        if (num1.isBlank() || num1 == "-" || num1.endsWith(".")) {
+            // num1 is invalid
+            return
+        }
+
+        if (num2.isBlank() || num2 == "-" || num2.endsWith(".")) {
+            // num2 is invalid
+            return
+        }
+
+        try {
+
+            val num1D = num1.toDouble()
+            val num2D = num2.toDouble()
+
+            var result = when(operator) {
+                "+" -> "${num1D + num2D}"
+                "-" -> "${num1D - num2D}"
+                "*" -> "${num1D * num2D}"
+                "/" -> "${num1D / num2D}"
+                else -> ""
             }
 
-            return
+            reset()
+            num1 = result
+            resultTextView.text = num1
+
+        } catch (e: Exception) {
+            reset()
         }
 
-        if (!digitButtonPressed) {
-            return
-        }
-
-        operatorButtonPressed = true
-        // we give the opportunity to enter the second number
-        digitButtonPressed = false
-        decimalPointButtonPressed = false
-
-        resultTextView.append((view as Button).text)
     }
+
 }

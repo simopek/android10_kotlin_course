@@ -114,7 +114,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="-"
-                android:onClick="onOperatorButtonClick"/>
+                android:onClick="onMinusButtonClick"/>
         </LinearLayout>
 
         <LinearLayout
@@ -158,7 +158,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:text="="
-                android:onClick="onOperatorButtonClick"/>
+                android:onClick="onEqualButtonClick"/>
         </LinearLayout>
 
         
