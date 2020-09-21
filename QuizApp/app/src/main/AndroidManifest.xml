@@ -9,6 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".QuizQuestionsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/CustomThemeWithActionBar"
+            android:windowSoftInputMode="adjustResize">
+            ></activity>
         <!--
         With "portrait" screen orientation we want the activity
         to be "set" in "vertical".
@@ -16,9 +21,10 @@
         "windowSoftInputMode" defines how the software keyboard
         affect the activity's window.
         -->
-        <activity android:name=".MainActivity"
-            android:theme="@style/CustomTheme"
+        <activity
+            android:name=".MainActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/CustomTheme"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
