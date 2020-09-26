@@ -13,11 +13,14 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/questionTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/quiz_main_question"
+            android:text="Question"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="25dp"
             />
 
         <LinearLayout
@@ -27,6 +30,7 @@
             android:layout_gravity="center">
 
             <ProgressBar
+                android:id="@+id/progressBar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
@@ -35,10 +39,11 @@
                 android:layout_gravity="center"
                 android:indeterminate="false"
                 android:layout_marginRight="10dp"
-                style="@android:style/Widget.ProgressBar.Horizontal"
+                style="@android:style/Widget.Holo.ProgressBar.Horizontal"
                 />
 
             <TextView
+                android:id="@+id/progressTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -47,40 +52,64 @@
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/questionImage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:src="@drawable/camaro_car"
             android:scaleType="centerInside"
+            android:layout_margin="10dp"
             ></ImageView>
 
         <TextView
+            android:id="@+id/questionOption1TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Car"
             android:gravity="center"
             android:background="@drawable/question_option_background"
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:padding="10dp"
             />
         <TextView
+            android:id="@+id/questionOption2TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Banana"
             android:gravity="center"
             android:background="@drawable/question_option_background"
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:padding="10dp"
             />
         <TextView
+            android:id="@+id/questionOption3TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Boh?"
             android:gravity="center"
             android:background="@drawable/question_option_background"
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:padding="10dp"
             />
         <TextView
+            android:id="@+id/questionOption4TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Elephant"
             android:gravity="center"
             android:background="@drawable/question_option_background"
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:padding="10dp"
             />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/submitButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SUBMIT"/>
 
 
     </LinearLayout>
