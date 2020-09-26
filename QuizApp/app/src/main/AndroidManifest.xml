@@ -13,7 +13,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/CustomThemeWithActionBar"
             android:windowSoftInputMode="adjustResize">
-            ></activity>
+        </activity>
         <!--
         With "portrait" screen orientation we want the activity
         to be "set" in "vertical".
