@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="questionOptionBgColor">#F0F4C3</color>
+    <color name="colorCustomBlack">#0F0F0F</color>
+    <color name="colorWhite">#FFFFFF</color>
 </resources>
