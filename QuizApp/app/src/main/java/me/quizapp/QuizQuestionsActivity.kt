@@ -1,5 +1,6 @@
 package me.quizapp
 
+import android.content.Intent
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,6 +13,13 @@ import kotlinx.android.synthetic.main.activity_quiz_questions.*
 
 class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
+    companion object {
+
+        const val NUM_CORRECT_ANSWERS = "NUM_CORRECT_ANSWERS"
+        const val NUM_QUESTIONS = "NUM_QUESTIONS"
+    }
+
+    private val questionAnswers: HashMap<Int, Boolean> = HashMap()
     private var currentQuestionIdx = 0
     private var selectedQuestionOption: Int? = null
     private var questions = Constants.getQuestions()
@@ -55,13 +63,14 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
         this.questionOption4TextView.text = currQuestion.optionFour
         this.progressBar.progress = currentQuestionIdx + 1
         this.progressTextView.text = "${(currentQuestionIdx + 1)}/${questions.size}"
+        this.submitButton.text = if (currentQuestionIdx < questions.size - 1) "Submit" else "Finish"
 
         resetDefaultStyleOnQuestionOptions()
     }
 
     private fun initSubmitButton() {
 
-        this.submitButton.setOnClickListener() {
+        this.submitButton.setOnClickListener(fun(_: View) {
 
             if (selectedQuestionOption == null) {
                 Toast.makeText(this, "Please, choose an option", Toast.LENGTH_SHORT).show()
@@ -70,23 +79,27 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
                 val question = questions[currentQuestionIdx]
                 if (question.correctOption == selectedQuestionOption) {
 
+                    updateAnswers(currentQuestionIdx, true)
+
                     currentQuestionIdx++
                     if (currentQuestionIdx >= questions.size) {
-                        Toast.makeText(this, "YOU WIN!!!", Toast.LENGTH_SHORT).show()
-                        resetActivityState()
+
+                        openFinishActivity()
+                        return
                     }
                     refreshView()
 
                 } else {
                     Toast.makeText(this, "Wrong answer!", Toast.LENGTH_SHORT).show()
+                    updateAnswers(currentQuestionIdx, false)
                 }
             }
 
-        }
+        })
     }
 
     private fun resetActivityState() {
-        
+
         this.selectedQuestionOption = null
         this.currentQuestionIdx = 0
     }
@@ -139,5 +152,26 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
         questionOptionTextView.setTextColor(ContextCompat.getColor(this, R.color.colorWhite))
         questionOptionTextView.background =
             ContextCompat.getDrawable(this, R.drawable.selected_question_option_background)
+    }
+
+    private fun updateAnswers(currentQuestionIdx: Int, answerIsCorrect: Boolean) {
+
+        if (currentQuestionIdx in questionAnswers) {
+            // we just save the first answer
+            return
+        }
+
+        questionAnswers[currentQuestionIdx] = answerIsCorrect
+    }
+
+    private fun openFinishActivity() {
+
+        val numberOfCorrectAnswers = questionAnswers.filter { it -> it.value }.count()
+
+        val intent = Intent(this, FinishActivity::class.java)
+        intent.putExtra(NUM_CORRECT_ANSWERS, numberOfCorrectAnswers)
+        intent.putExtra(NUM_QUESTIONS, questions.size)
+        startActivity(intent)
+        finish()
     }
 }
