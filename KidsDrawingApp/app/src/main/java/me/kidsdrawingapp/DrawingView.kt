@@ -15,6 +15,7 @@ class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) 
     private var mBrushSize: Float = 0f
     private var color = Color.BLACK
     private var canvas: Canvas? = null
+    private val mPaths = ArrayList<CustomPath>()
 
     init {
         setupDrawing()
@@ -42,6 +43,16 @@ class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) 
         super.onDraw(canvas)
 
         canvas?.drawBitmap(mCanvasBitmap!!, 0f, 0f, mCanvasPaint)
+
+        for (path in mPaths) {
+            mDrawPaint?.let {
+
+                it.strokeWidth = path.brushThickness
+                it.color = path.color
+                canvas?.drawPath(path, it)    
+            }
+        }
+
         if (!mDrawPath!!.isEmpty) {
             // we can use brushThickness because mDrawPath is CustomPath
             mDrawPaint!!.strokeWidth = mDrawPath!!.brushThickness
@@ -86,6 +97,8 @@ class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) 
             }
             // we stop touching
             MotionEvent.ACTION_UP -> {
+
+                mPaths.add(mDrawPath!!)
                 mDrawPath = CustomPath(color, mBrushSize)
             }
             // this way we say the event has not been handled
