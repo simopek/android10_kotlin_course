@@ -14,7 +14,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-
+        android:layout_margin="10dp"
+        android:background="@drawable/drawing_view_background"
         ></me.kidsdrawingapp.DrawingView>
     
 </androidx.constraintlayout.widget.ConstraintLayout>
