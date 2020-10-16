@@ -5,4 +5,11 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="drawingViewBackgroundColor">#880E4F</color>
     <color name="brushSelectorColor">#201F1F</color>
+    <color name="brushSelectorBackground">#969191</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="selectedBrushSelectorBackground">#EEF517</color>
+    <color name="colorBlack">#000000</color>
+    <color name="red">#B71C1C</color>
+    <color name="green">#1B5E20</color>
+    <color name="blue">#01579B</color>
 </resources>
