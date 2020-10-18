@@ -32,6 +32,17 @@
         We use "tag" in order to identify the color of
         the selected button
         -->
+
+        <ImageButton
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_margin="2dp"
+            android:contentDescription="color palette"
+            android:background="@color/colorBlack"
+            android:src="@drawable/normal_palette"
+            android:tag="@color/colorBlack"
+            android:onClick="onColorBrushImageButtonClick"/>
+
         <ImageButton
             android:layout_width="25dp"
             android:layout_height="25dp"
@@ -39,7 +50,8 @@
             android:contentDescription="color palette"
             android:background="@color/red"
             android:src="@drawable/normal_palette"
-            android:tag="@color/red"/>
+            android:tag="@color/red"
+            android:onClick="onColorBrushImageButtonClick"/>
 
         <ImageButton
             android:layout_width="25dp"
@@ -48,7 +60,8 @@
             android:contentDescription="color palette"
             android:background="@color/green"
             android:src="@drawable/normal_palette"
-            android:tag="@color/green"/>
+            android:tag="@color/green"
+            android:onClick="onColorBrushImageButtonClick"/>
 
         <ImageButton
             android:layout_width="25dp"
@@ -57,7 +70,8 @@
             android:contentDescription="color palette"
             android:background="@color/blue"
             android:src="@drawable/normal_palette"
-            android:tag="@color/blue"/>
+            android:tag="@color/blue"
+            android:onClick="onColorBrushImageButtonClick"/>
 
     </LinearLayout>
     
