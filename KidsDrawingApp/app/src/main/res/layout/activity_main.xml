@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@id/brushSelectorDialogButton"
+        app:layout_constraintBottom_toTopOf="@id/actionButtonsLayout"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/drawingViewFrameLayout">
@@ -93,16 +93,32 @@
             android:onClick="onColorBrushImageButtonClick"/>
 
     </LinearLayout>
-    
-    <ImageButton
-        android:id="@+id/brushSelectorDialogButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/brush_selector_button"
-        android:scaleType="fitXY"
-        android:layout_margin="5dp"
+
+    <LinearLayout
+        android:id="@+id/actionButtonsLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageButton
+            android:id="@+id/galleryImageSelectorButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/gallery_image_selector_button"
+            android:scaleType="fitXY"
+            android:layout_margin="5dp"/>
+
+        <ImageButton
+            android:id="@+id/brushSelectorDialogButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/brush_selector_button"
+            android:scaleType="fitXY"
+            android:layout_margin="5dp"/>
+
+    </LinearLayout>
+
     
 </androidx.constraintlayout.widget.ConstraintLayout>
