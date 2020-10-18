@@ -6,17 +6,36 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <me.kidsdrawingapp.DrawingView
-        android:id="@+id/drawingView"
+
+    <!-- FrameLayout lets stacks different views one on the other -->
+    <FrameLayout
+        android:id="@+id/drawingViewFrameLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/brushColorSelectorLayout"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_margin="10dp"
         android:background="@drawable/drawing_view_background"
-        ></me.kidsdrawingapp.DrawingView>
+        android:padding="1dp"
+        >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/guitar_image"
+            android:scaleType="centerCrop"
+            />
+
+        <!-- the "background" is white with some transparency -->
+        <me.kidsdrawingapp.DrawingView
+            android:id="@+id/drawingView"
+            android:layout_margin="10dp"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:background="#80FFFFFF"/>
+
+    </FrameLayout>
     
     <LinearLayout
         android:id="@+id/brushColorSelectorLayout"
@@ -26,7 +45,7 @@
         app:layout_constraintBottom_toTopOf="@id/brushSelectorDialogButton"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/drawingView">
+        app:layout_constraintTop_toBottomOf="@id/drawingViewFrameLayout">
 
         <!--
         We use "tag" in order to identify the color of
