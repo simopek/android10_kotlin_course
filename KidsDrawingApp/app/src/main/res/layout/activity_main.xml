@@ -21,9 +21,9 @@
         >
 
         <ImageView
+            android:id="@+id/drawingViewBackgroundImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/guitar_image"
             android:scaleType="centerCrop"
             />
 

@@ -1,11 +1,14 @@
 package me.kidsdrawingapp
 
 import android.Manifest
+import android.app.Activity
 import android.app.Dialog
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.ImageButton
@@ -15,6 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_brush_size.*
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,7 +38,9 @@ class MainActivity : AppCompatActivity() {
 
         galleryImageSelectorButton.setOnClickListener {
             if (isReadExternalStorageAllowed()) {
-                Toast.makeText(this, "TODO Select Image", Toast.LENGTH_SHORT).show()
+
+                val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                startActivityForResult(intent, GALLERY_IMAGES_REQUEST_CODE)
             } else {
                 requestStoragePermission()
             }
@@ -125,7 +131,31 @@ class MainActivity : AppCompatActivity() {
         return result == PackageManager.PERMISSION_GRANTED
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == GALLERY_IMAGES_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            
+            try {
+
+                if (data != null && data.data != null) {
+
+                    drawingViewBackgroundImage.visibility = View.VISIBLE
+                    drawingViewBackgroundImage.setImageURI(data.data)
+                } else {
+                    Toast.makeText(this, "Invalid image file", Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+            } catch (e: Exception) {
+                Log.e(ACTIVITY_TAG, e.localizedMessage, e)
+            }
+        }
+    }
+
     companion object {
         private const val STORAGE_PERMISSION_CODE = 1
+        private const val GALLERY_IMAGES_REQUEST_CODE = 2
+        private const val ACTIVITY_TAG = "MainActivity"
     }
 }
