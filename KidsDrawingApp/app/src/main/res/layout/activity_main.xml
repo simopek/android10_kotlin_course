@@ -118,6 +118,14 @@
             android:scaleType="fitXY"
             android:layout_margin="5dp"/>
 
+        <ImageButton
+            android:id="@+id/undoButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/undo_button"
+            android:scaleType="fitXY"
+            android:layout_margin="5dp"/>
+
     </LinearLayout>
 
     

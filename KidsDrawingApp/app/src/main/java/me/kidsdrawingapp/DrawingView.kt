@@ -124,6 +124,17 @@ class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) 
         mDrawPaint!!.color = this.color
     }
 
+    fun undoLastPath() {
+
+        if (mPaths.isEmpty()) {
+            return
+        }
+
+        mPaths.removeLast()
+        // this makes the onDraw method be called
+        invalidate()
+    }
+
 
     internal class CustomPath(
         var color: Int,

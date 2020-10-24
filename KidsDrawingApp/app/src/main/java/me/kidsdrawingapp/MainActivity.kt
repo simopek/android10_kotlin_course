@@ -46,6 +46,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        undoButton.setOnClickListener {
+            onUndoButtonClick()
+        }
+
         drawingView.setBrushSize(10f)
     }
 
@@ -135,7 +139,7 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == GALLERY_IMAGES_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            
+
             try {
 
                 if (data != null && data.data != null) {
@@ -151,6 +155,10 @@ class MainActivity : AppCompatActivity() {
                 Log.e(ACTIVITY_TAG, e.localizedMessage, e)
             }
         }
+    }
+
+    private fun onUndoButtonClick() {
+        drawingView.undoLastPath()
     }
 
     companion object {
