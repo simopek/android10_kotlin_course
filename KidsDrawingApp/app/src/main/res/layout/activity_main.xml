@@ -126,6 +126,14 @@
             android:scaleType="fitXY"
             android:layout_margin="5dp"/>
 
+        <ImageButton
+            android:id="@+id/saveButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/save_button"
+            android:scaleType="fitXY"
+            android:layout_margin="5dp"/>
+
     </LinearLayout>
 
     

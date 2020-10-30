@@ -2,10 +2,14 @@ package me.kidsdrawingapp
 
 import android.content.Context
 import android.graphics.*
+import android.os.ParcelFileDescriptor
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Toast
+import java.io.FileDescriptor
+import java.io.FileOutputStream
 
 class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
@@ -133,6 +137,26 @@ class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) 
         mPaths.removeLast()
         // this makes the onDraw method be called
         invalidate()
+    }
+
+    fun writeImageTo(fd: ParcelFileDescriptor) {
+
+        if (mCanvasBitmap == null || mPaths.isEmpty()) {
+
+            Toast.makeText(this.context, "empty image", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val internalBitmap = Bitmap.createBitmap(mCanvasBitmap!!)
+        val internalCanvas = Canvas(internalBitmap)
+        internalCanvas.drawColor(Color.LTGRAY)
+        for (p in mPaths) {
+            internalCanvas.drawPath(p, Paint(Color.BLACK))
+        }
+
+        FileOutputStream(fd.fileDescriptor).use {outstream ->
+            internalBitmap!!.compress(Bitmap.CompressFormat.PNG, 100, outstream)
+        }
     }
 
 

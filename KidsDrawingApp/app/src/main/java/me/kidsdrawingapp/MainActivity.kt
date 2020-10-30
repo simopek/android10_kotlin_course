@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.ParcelFileDescriptor
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
@@ -50,7 +51,21 @@ class MainActivity : AppCompatActivity() {
             onUndoButtonClick()
         }
 
+        saveButton.setOnClickListener {
+            onSaveButtonClick()
+        }
+
         drawingView.setBrushSize(10f)
+    }
+
+    private fun onSaveButtonClick() {
+
+        val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "image/png"
+            putExtra(Intent.EXTRA_TITLE, "new image")
+        }
+        startActivityForResult(intent, NEW_IMAGE_REQUEST_CODE)
     }
 
     private fun showBrushSelectorDialog() {
@@ -154,16 +169,39 @@ class MainActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 Log.e(ACTIVITY_TAG, e.localizedMessage, e)
             }
+        } else if (requestCode == NEW_IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+
+            data?.data?.also { uri ->
+
+                val fd = this.contentResolver.openFileDescriptor(uri, "w")
+                fd?.use {
+                    saveImage(fd)
+                }
+            }
         }
+    }
+
+    private fun saveImage(fileDescriptor: ParcelFileDescriptor) {
+
+        if (fileDescriptor == null) {
+
+            Toast.makeText(this, "Invalid image file", Toast.LENGTH_SHORT)
+                .show()
+            return
+        }
+
+        drawingView.writeImageTo(fileDescriptor)
     }
 
     private fun onUndoButtonClick() {
         drawingView.undoLastPath()
     }
+    
 
     companion object {
         private const val STORAGE_PERMISSION_CODE = 1
         private const val GALLERY_IMAGES_REQUEST_CODE = 2
+        private const val NEW_IMAGE_REQUEST_CODE = 3
         private const val ACTIVITY_TAG = "MainActivity"
     }
 }
