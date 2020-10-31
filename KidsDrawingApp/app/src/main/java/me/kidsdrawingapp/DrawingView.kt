@@ -8,19 +8,18 @@ import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
-import java.io.FileDescriptor
 import java.io.FileOutputStream
+
 
 class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
     private var mDrawPath: CustomPath? = null
-    private var mCanvasBitmap: Bitmap? = null
     private var mDrawPaint: Paint? = null
     private var mCanvasPaint: Paint? = null
     private var mBrushSize: Float = 0f
     private var color = Color.BLACK
-    private var canvas: Canvas? = null
     private val mPaths = ArrayList<CustomPath>()
+    private var mCanvas: Canvas? = null
 
     init {
         setupDrawing()
@@ -38,22 +37,17 @@ class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) 
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-
-        mCanvasBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
-        canvas = Canvas(mCanvasBitmap!!)
     }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-
-        canvas?.drawBitmap(mCanvasBitmap!!, 0f, 0f, mCanvasPaint)
 
         for (path in mPaths) {
             mDrawPaint?.let {
 
                 it.strokeWidth = path.brushThickness
                 it.color = path.color
-                canvas?.drawPath(path, it)    
+                canvas?.drawPath(path, it)
             }
         }
 
@@ -63,6 +57,7 @@ class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) 
             mDrawPaint!!.color = mDrawPath!!.color
             canvas!!.drawPath(mDrawPath!!, mDrawPaint!!)
         }
+
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
@@ -118,8 +113,10 @@ class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) 
     fun setBrushSize(newSize: Float) {
 
         // with TypedValue we take into account the dimension unit and we convert the size
-        mBrushSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newSize,
-            resources.displayMetrics)
+        mBrushSize = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP, newSize,
+            resources.displayMetrics
+        )
         mDrawPaint!!.strokeWidth = mBrushSize
     }
 
@@ -141,22 +138,34 @@ class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) 
 
     fun writeImageTo(fd: ParcelFileDescriptor) {
 
-        if (mCanvasBitmap == null || mPaths.isEmpty()) {
+        if (mPaths.isEmpty()) {
 
             Toast.makeText(this.context, "empty image", Toast.LENGTH_SHORT).show()
             return
         }
 
-        val internalBitmap = Bitmap.createBitmap(mCanvasBitmap!!)
-        val internalCanvas = Canvas(internalBitmap)
-        internalCanvas.drawColor(Color.LTGRAY)
-        for (p in mPaths) {
-            internalCanvas.drawPath(p, Paint(Color.BLACK))
+        FileOutputStream(fd.fileDescriptor).use { stream ->
+            getBitmapFromView()!!.compress(Bitmap.CompressFormat.PNG, 100, stream)
+            stream.flush()
         }
+    }
 
-        FileOutputStream(fd.fileDescriptor).use {outstream ->
-            internalBitmap!!.compress(Bitmap.CompressFormat.PNG, 100, outstream)
+    private fun getBitmapFromView(): Bitmap? {
+        //Define a bitmap with the same size as the view
+        val returnedBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        //Bind a canvas to it
+        val canvas = Canvas(returnedBitmap)
+        //Get the view's background
+        val bgDrawable = background
+        if (bgDrawable != null) //has background drawable, then draw it on the canvas
+            bgDrawable.draw(canvas)
+        else { //does not have background drawable, then draw white background on the canvas
+            canvas.drawColor(Color.LTGRAY)
         }
+        // draw the view on the canvas
+        this.draw(canvas)
+        //return the bitmap
+        return returnedBitmap
     }
 
 
