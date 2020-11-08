@@ -4,10 +4,14 @@ import android.content.Context
 import android.graphics.*
 import android.os.ParcelFileDescriptor
 import android.util.AttributeSet
+import android.util.Log
 import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import java.io.FileOutputStream
 
 
@@ -145,9 +149,14 @@ class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) 
         }
 
         FileOutputStream(fd.fileDescriptor).use { stream ->
+            Log.i("writeImageTo", "going to compress the bitmap")
+
             getBitmapFromView()!!.compress(Bitmap.CompressFormat.PNG, 100, stream)
             stream.flush()
+
+            Log.i("writeImageTo", "after compressing the bitmap")
         }
+
     }
 
     private fun getBitmapFromView(): Bitmap? {
