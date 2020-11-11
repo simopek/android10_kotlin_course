@@ -8,10 +8,14 @@ import android.util.Log
 import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
+import android.widget.ProgressBar
 import android.widget.Toast
+import android.widget.ViewSwitcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
+import me.kidsdrawingapp.uicomponents.ProgressBarManager
 import java.io.FileOutputStream
 
 
@@ -140,13 +144,15 @@ class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) 
         invalidate()
     }
 
-    fun writeImageTo(fd: ParcelFileDescriptor) {
+    suspend fun writeImageTo(progressBarManager: ProgressBarManager, fd: ParcelFileDescriptor) {
 
         if (mPaths.isEmpty()) {
 
             Toast.makeText(this.context, "empty image", Toast.LENGTH_SHORT).show()
             return
         }
+
+        progressBarManager.showProgressBar()
 
         FileOutputStream(fd.fileDescriptor).use { stream ->
             Log.i("writeImageTo", "going to compress the bitmap")
@@ -156,6 +162,10 @@ class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) 
 
             Log.i("writeImageTo", "after compressing the bitmap")
         }
+
+        delay(2000)
+
+        progressBarManager.hideProgressBar()
 
     }
 

@@ -5,7 +5,6 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.ParcelFileDescriptor
@@ -21,8 +20,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_brush_size.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import me.kidsdrawingapp.uicomponents.ProgressBarManager
 import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
@@ -196,7 +195,8 @@ class MainActivity : AppCompatActivity() {
 
         GlobalScope.launch(Dispatchers.Main) {
             fileDescriptor.use {
-                drawingView.writeImageTo(it)
+                drawingView.writeImageTo(
+                    ProgressBarManager(progressBarLayout, drawingViewFrameLayout, brushColorSelectorLayout, actionButtonsLayout), it)
             }
         }
     }
